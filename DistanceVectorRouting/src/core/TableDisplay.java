@@ -1,18 +1,21 @@
 package core;
 
-import java.util.ArrayList;
-
+import core.base.Table;
 import processing.core.PApplet;
 
 public class TableDisplay {
 	
-	private ArrayList<Node> displayTable = new ArrayList<Node>();
+	private Table tableToDisplay;
 	
 	private PApplet launcher;
 	
 	public TableDisplay(PApplet launcher) {
 		this.launcher = launcher;
+		
+		tableToDisplay = new Table();
 	}
 	
-	
+	public void draw() {
+		
+	}
 }

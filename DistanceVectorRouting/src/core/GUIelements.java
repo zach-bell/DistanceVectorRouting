@@ -1,8 +1,8 @@
-package applet;
+package core;
 
 import java.util.ArrayList;
 
-import core.Button;
+import core.base.Button;
 import processing.core.PApplet;
 import processing.core.PVector;
 

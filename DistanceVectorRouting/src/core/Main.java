@@ -2,7 +2,8 @@ package core;
 
 import java.util.ArrayList;
 
-import applet.GUIelements;
+import core.base.Connection;
+import core.base.Node;
 import processing.core.PApplet;
 import processing.core.PVector;
 import tools.RandomGen;
@@ -102,13 +103,15 @@ public class Main {
 	
 	// Check local node connections to stop drawing
 	public void checkConnections(Node selected) {
-		PApplet.println("Checking...");
+		PApplet.print("Checking... ");
 		for (Connection c : connections) {
 			if (c.node1 == selected) {
+				PApplet.println("found and removing "+selected.name);
 				connections.remove(c);
 				break;
 			}
 			if (c.node2 == selected) {
+				PApplet.println("found and removing "+selected.name);
 				connections.remove(c);
 				break;
 			}
