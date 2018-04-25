@@ -83,16 +83,16 @@ public class Main {
 						if (!contains) {
 							Connection connection = new Connection(launcher, selectedNode, n, selectedNode.color);
 							connections.add(connection);
-							selectedNode.connections.add(connections.get(connections.size() - 1));
 						}
 					}
 					// if we right click on the selected node then delete it
 					if (selectedNode == n) {
-						selectedNode.connections.clear();
 						nodes.remove(selectedNode);
+						checkConnections(selectedNode);
 						if (!nodes.isEmpty())
 							selectedNode = nodes.get(0);
-						//checkConnections();
+						else
+							selectedNode = null;
 						break;
 					}
 				}
@@ -101,14 +101,14 @@ public class Main {
 	}
 	
 	// Check local node connections to stop drawing
-	public void checkConnections() {
+	public void checkConnections(Node selected) {
 		PApplet.println("Checking...");
 		for (Connection c : connections) {
-			if (c.node1 == null) {
+			if (c.node1 == selected) {
 				connections.remove(c);
 				break;
 			}
-			if (c.node2 == null) {
+			if (c.node2 == selected) {
 				connections.remove(c);
 				break;
 			}
