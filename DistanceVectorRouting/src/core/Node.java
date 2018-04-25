@@ -17,13 +17,13 @@ public class Node {
 	public Button nodeButton;
 	public int color;
 	
+	// Connections for easy removal
+	public ArrayList<Connection> connections = new ArrayList<Connection>();
+	
 	// Router table
 	public ArrayList<Node> table = new ArrayList<Node>();
 	//	TODO Actually implement the table for each node.
 	//	This could solve the removing problem
-	
-	// Connection table
-	public ArrayList<Connection> connections = new ArrayList<Connection>();
 	
 	public Node(PApplet launcher, String name, PVector position) {
 		this.launcher = launcher;
@@ -48,24 +48,6 @@ public class Node {
 		launcher.fill(0,0,0);
 		launcher.textAlign(PApplet.LEFT);
 		launcher.text(name, position.x + 2, position.y + (textSize));
-	// Connections
-		for (Connection c : connections) {
-			c.draw();
-		}
-	}
-	
-	public void checkConnections() {
-		PApplet.println("Checking...");
-		for (Connection c : connections) {
-			if (c.node1 == null) {
-				connections.remove(c);
-				break;
-			}
-			if (c.node2 == null) {
-				connections.remove(c);
-				break;
-			}
-		}
 	}
 	
 	public void mousePressed() {

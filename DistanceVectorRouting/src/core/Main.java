@@ -12,6 +12,7 @@ public class Main {
 	private PApplet launcher;
 	private RandomGen gen = new RandomGen();
 	private ArrayList<Node> nodes;
+	public ArrayList<Connection> connections = new ArrayList<Connection>();
 	private GUIelements gui;
 	private Node selectedNode;
 	
@@ -28,6 +29,9 @@ public class Main {
 	
 	// Draws visual elements on the screen specific to this class
 	public void draw() {
+		for (Connection c : connections) {
+			c.draw();
+		}
 		for (Node n : nodes) {
 			if (n.equals(selectedNode))
 				launcher.stroke(255,0,0);
@@ -39,10 +43,10 @@ public class Main {
 		gui.draw();
 	}
 	
-/*	createNode()
- * 		Creates a new node somewhere random in the drawing window.
- * 		Each node can be interacted with left and right mouse clicks.
- */
+	/*	createNode()
+	 * 		Creates a new node somewhere random in the drawing window.
+	 * 		Each node can be interacted with left and right mouse clicks.
+	 */
 	public void createNode() {
 		Node temp = new Node(launcher, gen.nextChar()+gen.nextNumberString(3),
 				new PVector((int) (launcher.random(Node.size.x, launcher.width - Node.size.x)),
@@ -67,26 +71,28 @@ public class Main {
 		if (launcher.mouseButton == PApplet.RIGHT) {
 			for (Node n : nodes) {
 				if (n.nodeButton.checkOverlap()) {
+					// if we right click on a different node than selected, make a connection
 					if (selectedNode != n) {
 						boolean contains = false;
-						for (Connection c : selectedNode.connections) {
+						for (Connection c : connections) {
+							if (c.node1 == n)
+								contains = true;
 							if (c.node2 == n)
 								contains = true;
 						}
 						if (!contains) {
 							Connection connection = new Connection(launcher, selectedNode, n, selectedNode.color);
-							selectedNode.connections.add(connection);
+							connections.add(connection);
+							selectedNode.connections.add(connections.get(connections.size() - 1));
 						}
 					}
+					// if we right click on the selected node then delete it
 					if (selectedNode == n) {
-						/*	TODO fix removing nodes
-						 *	nodes are not being set to null through
-						 *	the connections of other nodes
-						 */
+						selectedNode.connections.clear();
 						nodes.remove(selectedNode);
 						if (!nodes.isEmpty())
 							selectedNode = nodes.get(0);
-						checkNodeConnections();
+						//checkConnections();
 						break;
 					}
 				}
@@ -94,9 +100,18 @@ public class Main {
 		}
 	}
 	
-	private void checkNodeConnections() {
-		for (Node n : nodes) {
-			n.checkConnections();
+	// Check local node connections to stop drawing
+	public void checkConnections() {
+		PApplet.println("Checking...");
+		for (Connection c : connections) {
+			if (c.node1 == null) {
+				connections.remove(c);
+				break;
+			}
+			if (c.node2 == null) {
+				connections.remove(c);
+				break;
+			}
 		}
 	}
 	
