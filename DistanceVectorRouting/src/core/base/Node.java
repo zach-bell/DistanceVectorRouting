@@ -1,4 +1,4 @@
-package core;
+package core.base;
 
 import java.util.ArrayList;
 
@@ -21,7 +21,7 @@ public class Node {
 	public ArrayList<Connection> connections = new ArrayList<Connection>();
 	
 	// Router table
-	public ArrayList<Node> table = new ArrayList<Node>();
+	public Table table;
 	//	TODO Actually implement the table for each node.
 	//	This could solve the removing problem
 	
@@ -34,6 +34,8 @@ public class Node {
 		
 		nodeButton = new Button(launcher, name, position, size);
 		nodeButton.noDraw = true;
+		
+		table = new Table();
 		
 		PApplet.println("Node: "+name+" created. Position: "+position.x+","+position.y);
 	}
