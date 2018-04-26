@@ -201,8 +201,8 @@ public class Main {
 							n.table.delays.set(i, delay + cd);
 							n.table.outgoing.set(i, c.node2);
 						}
+						i++;
 					}
-					i++;
 				}
 			}
 		}
