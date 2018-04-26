@@ -1,6 +1,8 @@
-package core.base;
+package core.table;
 
 import java.util.ArrayList;
+
+import core.base.Node;
 
 public class Table {
 	

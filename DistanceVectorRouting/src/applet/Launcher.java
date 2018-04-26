@@ -40,4 +40,8 @@ public class Launcher extends PApplet {
 	public void mouseReleased() {
 		main.mouseReleased();
 	}
+	
+	public void toggleTableWindow() {
+		main.toggleTableWindow();
+	}
 }
