@@ -52,6 +52,7 @@ public class Node {
 		launcher.text(name, position.x + 2, position.y + (textSize));
 	}
 	
+	// Mouse pressed kid
 	public void mousePressed() {
 		locked = true;
 	}
